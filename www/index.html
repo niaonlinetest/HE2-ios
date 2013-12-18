@@ -3,16 +3,8 @@
   <head>
     <title>
     </title>
-    <!-- Android <meta name="viewport" content="width=device-width, initial-scale=1.0,
-    maximum-scale=1.0, user-scalable=no;" />
-    <meta charset="utf-8">
-    -->
-    <!-- iPad/iPhone specific css below, add after your main css>
-<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="/ipad.css" type="text/css" />
-<link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="/iphone.css" type="text/css" />
--->
-    <!-- If your application is targeting iOS BEFORE 4.0 you MUST put json2.js from
-    http://www.JSON.org/json2.js into your www directory and include it here -->
+     <link type="text/css" href="css/style.css" rel="stylesheet" />
+
     <script src="jquery.min.js">
     </script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -22,33 +14,37 @@
      function onBodyLoad() {
 
   document.addEventListener("deviceready", onDeviceReady, false);
-
        
- //window.zip = cordova.require('cordova.plugin.ExtractZip.ExtractZip');
-
-  // create dir-----------------------------------------------------------
-
+  //window.zip = cordova.require('cordova.plugin.ExtractZip.ExtractZip');
+  // create dir------ ------------------------------------------------------
 
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onRequestFileSystemSuccess, null);
 
   function onRequestFileSystemSuccess(fileSystem) {
-    var entry =  .root;
-    entry.getDirectory("example", {
-      create: true,
-      exclusive: false
-    }, onGetDirectorySuccess, onGetDirectoryFail);
-    // index link--------------
+    var entry = fileSystem.root;
+
+        // index link--------------
+    console.log(entry.fullPath + "/example/site/index.html");
     var mySiteUrl = entry.fullPath + "/example/site/index.html"
     var mySiteUrl2 = entry.fullPath + "/example/site/phone-call-active-128.png"
     var divOpen = document.getElementById("open");
     var divOpen2 = document.getElementById("open2");
-    divOpen.setAttribute("href", mySiteUrl);
+    divOpen.setAttribute("src", mySiteUrl);
     divOpen2.setAttribute("src", mySiteUrl2);
-console.log(entry.fullPath + "/example/site/index.html");
+    console.log(entry.fullPath + "/example/site/index.html");
+    console.log("uper hai url");
+
+
+    entry.getDirectory("example", {
+      create: true,
+      exclusive: false
+    }, onGetDirectorySuccess, onGetDirectoryFail);
+   
+
   }
 
   function onGetDirectorySuccess(dir) {
-    console.log("Created dir " + dir.name);
+  console.log("Created dir " + dir.name);
   }
 
   function onGetDirectoryFail(error) {
@@ -68,7 +64,7 @@ console.log(entry.fullPath + "/example/site/index.html");
       var fileTransfer = new FileTransfer();
       fileEntry.remove();
  
-      fileTransfer.download("http://bluesapphirecreations.info/design/d1/he-app/site.zip", sPath + "/example/" + "site.zip",
+      fileTransfer.download("http://bluesapphirecreations.info/design/d1/he-app/site.zip", sPath + "example/" + "site.zip",
 
       function(theFile) {
         showLink(theFile.toURL());
@@ -91,23 +87,16 @@ console.log(entry.fullPath + "/example/site/index.html");
  function showLink(url) {
 
   //alert(url);
-  $("#open").show();
+  //$("#open").show();
 
-  //alert("start extracting");
-
-
-  // function extractFile(fileName) {
-  //   alert(fileName);
-  //   var ZipClient = new ExtractZipFilePlugin();
-  //   ZipClient.extractFile(fileName, win, fail, 'ExtractZipFilePlugin');
-  // }
+  
   console.log(url + " ab check kro");
   //extractFile(url);
   
   // start extracting zip
-        console.log('start extracting now vip');
-        
-
+        console.log('start extracting now vip');         
+   
+ 
             document.body.style.background = 'red'
             window.zip = cordova.require('cordova.plugin.ExtractZip.ExtractZip');
         
@@ -124,32 +113,12 @@ console.log(entry.fullPath + "/example/site/index.html");
             alert('Error: ' + status);
         }
 
- 
- //-------------------Android--------------------
- // document.body.style.background = 'red'
- //        window.zip = cordova.require('cordova.plugin.ExtractZip.ExtractZip');
 
- //    function extractZip(fileName) {
- //      zip.extract(fileName, '/mnt/sdcard/', win, fail);
- //    }
- //    function getTempDir(dirName) {
- //      zip.getTempDir(dirName, win, fail);
- //     }
- //    function win(status) {
- //      alert('Message: done hai' + status );
- //    }
- //    function fail(error) {
- //      alert('Error: error ' + status );
- //    }
-
-
-
-       // extractFile(url);
-        //extractFile(sPath + "/example/" + "site.zip");
-        console.log('end extracting now vip, my func is fine ');
-        console.log(sPath + "/example/" + "site.zip");
+       
+        console.log(sPath + "example/" + "site.zip");
 
         ExtractZip( "/var/mobile/Applications/39BFC918-E086-4FEF-9AE4-A1009CD477D9/Documents/example/" + "site.zip");
+        console.log('end extracting now vip, my func is fine ');
        // extractFile('example/site.zip');
        // extractZip('example/site.zip');
 
@@ -160,10 +129,7 @@ console.log(entry.fullPath + "/example/site/index.html");
   console.log(evt.target.error.code);
  }
 
- /* When this function is called, PhoneGap has been initialized and is ready to roll */
-/* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
-see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
-for more details -jm */
+ 
 
  function onDeviceReady() {
   // do your thing!
@@ -174,28 +140,38 @@ for more details -jm */
     </script>
   </head>
   <body >
-    
 
-    <h1>
-      Home Elevator
-    </h1>
-    <p>
-      Don't know how to get started? Check out
-      <em>
-        <a target="_blank" href="/http://www.phonegap.com/start">PhoneGap Start</a>
-      </em>
-    </p>
-    <br />
-    <p>
-      DOWNLOADING FILE...
-      <input type="button" value="start" onclick="onBodyLoad()"   /> 
-      <br />
-      <span id="ready">
+<div class="wrap">
+<h1>Home Elevator</h1>
+<div class="letest">
+<span> Refresh for latest version</span><a class="button" onclick="onBodyLoad()"  href="#">Refresh</a>
+</div>
+<div class="browse">
+<a href="#">Browse Now</a>
+</div>
+<div class="start">
+<a class="startbtn" href="example/site/site/index.html">Start</a>
+<br><br>
+<a class="startbtn" href="/var/mobile/Applications/39BFC918-E086-4FEF-9AE4-A1009CD477D9/Documents/example/site/index.html">Start2</a> 
+</div>
+</div>
+
+<br><br>
+<img src="https://www.google.co.in/images/srpr/logo11w.png" alt="">
+<img src="/var/mobile/Applications/39BFC918-E086-4FEF-9AE4-A1009CD477D9/Documents/example/logo.png" alt="">
+<img src="file://localhost/var/mobile/Applications/39BFC918-E086-4FEF-9AE4-A1009CD477D9/Documents/example/logo.png" alt="">
+<iframe src="http://google.com" width="400" height="400"  frameborder="0"></iframe>
+
+<br><br>
+frame 2
+<br><br>
+<img src="/var/mobile/Applications/39BFC918-E086-4FEF-9AE4-A1009CD477D9/Documents/example/site/phone-call-active-128.png" id="open2" alt="">
+<iframe src="" id="open" width="400" height="400" frameborder="0"></iframe>
+     <!--  <span id="ready">
       </span>
       <a href="#" id="open" style="display: none;">open</a>
-      <image src="" id="open2" style="display: none;" alt="" />
-    </p>
-<a href="example/site/index.html">click  here</a>
+      <image src="" id="open2" style="display: none;" alt="" /> -->
+    
 
   </body> 
   </html>
